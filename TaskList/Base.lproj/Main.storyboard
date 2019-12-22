@@ -15,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="TaskListItem" id="CaX-fE-aM8">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="TaskListItem" id="CaX-fE-aM8" customClass="TaskListTableViewCell" customModule="TaskList" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CaX-fE-aM8" id="Mxd-fr-I5V">
@@ -49,6 +49,11 @@
                                         <constraint firstAttribute="bottom" secondItem="zvJ-Tp-rZI" secondAttribute="bottom" constant="11" id="wZt-mv-IK5"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="checkmarkLabel" destination="zvJ-Tp-rZI" id="3Jr-Zz-zVa"/>
+                                    <outlet property="todoTextLabel" destination="7QO-pZ-QaV" id="hUb-Dh-VmH"/>
+                                    <segue destination="l1p-E1-A8F" kind="show" identifier="EditItemSegue" trigger="accessoryAction" id="SyT-I9-h5t"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -57,11 +62,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Tasks List" id="JxJ-dY-0WR">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="dM2-y5-KVm">
-                            <connections>
-                                <segue destination="l1p-E1-A8F" kind="show" identifier="AddItemSegue" id="48M-54-NzQ"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="dM2-y5-KVm">
+                                <connections>
+                                    <segue destination="l1p-E1-A8F" kind="show" identifier="AddItemSegue" id="48M-54-NzQ"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Delete" id="C02-gy-19s">
+                                <connections>
+                                    <action selector="deleteItems:" destination="oaV-Ja-me7" id="5V4-Ok-0CM"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                 </tableViewController>
@@ -69,10 +81,10 @@
             </objects>
             <point key="canvasLocation" x="1030.4347826086957" y="122.54464285714285"/>
         </scene>
-        <!--Add Item Table View Controller-->
+        <!--Item Detail View Controller-->
         <scene sceneID="ieW-Hb-PnX">
             <objects>
-                <tableViewController id="l1p-E1-A8F" customClass="AddItemTableViewController" customModule="TaskList" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="l1p-E1-A8F" customClass="ItemDetailViewController" customModule="TaskList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="udz-6I-0be">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -118,7 +130,7 @@
                                 <action selector="cancel:" destination="l1p-E1-A8F" id="xB9-47-K8i"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Add" id="ve9-GC-PUo">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Done" id="ve9-GC-PUo">
                             <connections>
                                 <action selector="done:" destination="l1p-E1-A8F" id="pnu-hN-jUi"/>
                             </connections>
@@ -153,4 +165,7 @@
             <point key="canvasLocation" x="120.28985507246378" y="122.54464285714285"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="SyT-I9-h5t"/>
+    </inferredMetricsTieBreakers>
 </document>
